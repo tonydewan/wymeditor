@@ -72,3 +72,19 @@ archive: min
 	
 	@@echo ${WE_ARCH} "Built"
 	@@echo
+
+test: unittest selenium
+
+testserver:
+	@cd src; python -m SimpleHTTPServer &
+
+selenium-firefox: testserver
+	@SELENIUM_BROWSER=firefox nosetests wym_selenium/
+
+selenium-chrome: testserver
+	@SELENIUM_BROWSER=chrome nosetests wym_selenium/
+
+selenium: selenium-firefox selenium-chrome
+
+unittest:
+	@@build/phantomjs_test.sh localhost:8000/test/unit
