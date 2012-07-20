@@ -3,6 +3,15 @@
 This document tracks the enhancements and bug fixes between releases of
 WYMeditor.
 
+## 1.0.0b4 (Beta 4)
+
+*release-date* TBD
+
+
+### Bug Fixes
+
+* The editor area is now properly displayed when using the Compact skin and styling with `white-space: nowrap'`. Thanks to Jorge Salinas for the fix.
+
 ## 1.0.0b3 (Beta 3)
 
 *release-date* June 26, 2012
