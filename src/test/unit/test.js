@@ -408,41 +408,20 @@ test("no-op on table with colgroup generates valid XHTML", function () {
     equals(jQuery.wymeditors(0).parser.parse(tableWithColXHtml), tableWithColXHtml);
 });
 
-test("Allow line breaks after strong in block level elements", function () {
-    expect(4);
-    var listHtml = String() +
-        '<ol id="ol_1">' +
-            '<li id="li_1">li_1' +
-                '<ol>' +
-                    '<li id="li_1_1"><strong>li_1_1</strong><br />more text</li>' +
-                '</ol>' +
-            '</li>' +
-        '</ol>',
-        listHtmlUnclosedBr = String() +
-        '<ol id="ol_1">' +
-            '<li id="li_1">li_1' +
-                '<ol>' +
-                    '<li id="li_1_1"><strong>li_1_1</strong><br>more text</li>' +
-                '</ol>' +
-            '</li>' +
-        '</ol>',
+test("move line breaks after strong/em when created there", function () {
+    expect(2);
+    var valueFromIframe = '<p>Test <strong>bolded<br></strong> value</p>',
+        expectedFromParser = '<p>Test <strong>bolded</strong><br /> value</p>',
         wymeditor = jQuery.wymeditors(0);
 
     equals(
-        wymeditor.parser.parse(listHtml),
-        listHtml
-    );
-    equals(
-        wymeditor.parser.parse(listHtmlUnclosedBr),
-        listHtml
+        wymeditor.parser.parse(valueFromIframe),
+        expectedFromParser
     );
 
     // Now throw the browser/dom in the mix
-    wymeditor.html(listHtml);
-    htmlEquals(wymeditor, listHtml);
-
-    wymeditor.html(listHtmlUnclosedBr);
-    htmlEquals(wymeditor, listHtml);
+    wymeditor.html(expectedFromParser);
+    htmlEquals(wymeditor, expectedFromParser);
 });
 
 module("Post Init", {setup: setupWym});
