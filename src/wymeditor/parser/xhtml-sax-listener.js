@@ -242,10 +242,14 @@ WYMeditor.XhtmlSaxListener.prototype.openBlockTag = function(tag, attributes) {
 };
 
 WYMeditor.XhtmlSaxListener.prototype.inlineTag = function(tag, attributes) {
-    this._last_node_was_text = false;
-    this.output += this.helper.tag(
-        tag,
-        this.validator.getValidTagAttributes(tag, attributes));
+    if(tag == 'br' && jQuery.inArray(this.last_tag,['strong','em']) >= 0 ){
+        this.insertContentAfterClosingTag(this.last_tag, '<br />');
+    }else{
+      this._last_node_was_text = false;
+      this.output += this.helper.tag(
+          tag,
+          this.validator.getValidTagAttributes(tag, attributes));
+    }
 };
 
 WYMeditor.XhtmlSaxListener.prototype.openUnknownTag = function(tag, attributes) {
